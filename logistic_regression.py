@@ -12,7 +12,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from process import get_data, img_height, img_width
 
-
 # Define model filename
 model_filename = f"models/faces_model_logistic_regression.keras"
 
@@ -52,52 +51,52 @@ Trainable params: 295710 (1.13 MB)
 Non-trainable params: 0 (0.00 Byte)
 _________________________________________________________________
 """
-    
+
 if __name__ == '__main__':
-  X_train, X_test, y_train, y_test = get_data()
-    
-  # Define the input layer
-  input_shape = (222, 222, 1)  # Grayscale image with one channel
-  input_layer = layers.Input(shape=input_shape, name='input_layer')
+    X_train, X_test, y_train, y_test = get_data()
 
-  # Flatten the input
-  flatten_layer = layers.Flatten(name='flatten_layer')(input_layer)
+    # Define the input layer
+    input_shape = (222, 222, 1)  # Grayscale image with one channel
+    input_layer = layers.Input(shape=input_shape, name='input_layer')
 
-  # Output layer with softmax activation for multi-class classification
-  output_layer = layers.Dense(6, activation='softmax', name='output_layer')(flatten_layer)
+    # Flatten the input
+    flatten_layer = layers.Flatten(name='flatten_layer')(input_layer)
 
-  # Create the model
-  model = tf.keras.Model(inputs=input_layer, outputs=output_layer)
+    # Output layer with softmax activation for multi-class classification
+    output_layer = layers.Dense(6, activation='softmax', name='output_layer')(flatten_layer)
 
-  # Compile the model
-  model.compile(optimizer='adam',  # default learning rate is 0.001
-                loss='categorical_crossentropy',  # For multi-class classification
-                metrics=['accuracy'])
+    # Create the model
+    model = tf.keras.Model(inputs=input_layer, outputs=output_layer)
 
-  # Display the model summary
-  model.summary()
+    # Compile the model
+    model.compile(optimizer='adam',  # default learning rate is 0.001
+                  loss='categorical_crossentropy',  # For multi-class classification
+                  metrics=['accuracy'])
 
-  # Assuming X_train_gray and y_train are your training data and labels
-  history = model.fit(X_train, y_train, epochs=200, batch_size=64, validation_split=0.2)
+    # Display the model summary
+    model.summary()
 
-  # Accuracy for validation and training data
-  print("Validation Loss: ", history.history['val_loss'][-1])
-  print("Validation accuracy: ", history.history['val_accuracy'][-1])
-  print("Training Loss: ", history.history['loss'][-1])
-  print("Training accuracy: ", history.history['accuracy'][-1])
+    # Assuming X_train_gray and y_train are your training data and labels
+    history = model.fit(X_train, y_train, epochs=200, batch_size=64, validation_split=0.2)
 
-  # Assuming X_test_gray and y_test are your test data and labels
-  evaluation_result = model.evaluate(X_test, y_test)
+    # Accuracy for validation and training data
+    print("Validation Loss: ", history.history['val_loss'][-1])
+    print("Validation accuracy: ", history.history['val_accuracy'][-1])
+    print("Training Loss: ", history.history['loss'][-1])
+    print("Training accuracy: ", history.history['accuracy'][-1])
 
-  # Print the evaluation metrics
-  print(f"Test Loss: {evaluation_result[0]}")
-  print(f"Test Accuracy: {evaluation_result[1]}")
+    # Assuming X_test_gray and y_test are your test data and labels
+    evaluation_result = model.evaluate(X_test, y_test)
 
-  model.save(model_filename)
+    # Print the evaluation metrics
+    print(f"Test Loss: {evaluation_result[0]}")
+    print(f"Test Accuracy: {evaluation_result[1]}")
 
-  # # Load the model
-  # loaded_model = keras.models.load_model(model_filename)  
-  # loaded_model.summary()
-  # evaluation_result = loaded_model.evaluate(X_test, y_test)
-  # print(f"Loss: {evaluation_result[0]}")
-  # print(f"Accuracy: {evaluation_result[1]}")
+    model.save(model_filename)
+
+    # # Load the model
+    # loaded_model = keras.models.load_model(model_filename)
+    # loaded_model.summary()
+    # evaluation_result = loaded_model.evaluate(X_test, y_test)
+    # print(f"Loss: {evaluation_result[0]}")
+    # print(f"Accuracy: {evaluation_result[1]}")

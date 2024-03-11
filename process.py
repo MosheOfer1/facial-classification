@@ -1,5 +1,3 @@
-import pandas as pd
-import tempfile
 import os
 import pandas as pd
 from PIL import Image
@@ -7,7 +5,6 @@ import numpy as np
 from keras.src.utils import to_categorical
 from sklearn.calibration import LabelEncoder
 from sklearn.model_selection import train_test_split
-
 
 img_height = img_width = 222
 
@@ -43,7 +40,7 @@ def get_data():
             image = image.convert('L')
             image = image.resize((img_width, img_height))  # Resize image
             # Normalize pixel values to the range [0, 1]
-            image = np.array(image)/ 255.0
+            image = np.array(image) / 255.0
             images.append(image)
         else:
             print(f"File not found: {path}")
