@@ -1,10 +1,6 @@
-from process import get_data, img_height, img_width
-import numpy as np
+from process import get_data
 import keras
 from keras import layers
-import tensorflow as tf
-import pandas as pd
-
 
 # Define model filename
 model_filename = f"models/faces_model_mlp.keras"
@@ -45,7 +41,7 @@ _________________________________________________________________
 
 if __name__ == '__main__':
     X_train, X_test, y_train, y_test = get_data()
-    
+
     input_shape = (222, 222, 1)
     hidden_layer_1_size = 500
     hidden_layer_2_size = 250
@@ -54,20 +50,20 @@ if __name__ == '__main__':
 
     # Build the model:
     model = keras.Sequential(
-    [
-        keras.Input(shape=input_shape),
-        layers.Flatten(),
-        layers.Dense(hidden_layer_1_size, activation="relu"),
-        layers.Dense(hidden_layer_2_size, activation="relu"),
-        layers.Dense(hidden_layer_3_size, activation="relu"),
-        layers.Dense(num_classes, activation="softmax"),
+        [
+            keras.Input(shape=input_shape),
+            layers.Flatten(),
+            layers.Dense(hidden_layer_1_size, activation="relu"),
+            layers.Dense(hidden_layer_2_size, activation="relu"),
+            layers.Dense(hidden_layer_3_size, activation="relu"),
+            layers.Dense(num_classes, activation="softmax"),
         ]
     )
 
     model.summary()
 
     batch_size = 128
-    epochs = 15
+    epochs = 10
 
     model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
 

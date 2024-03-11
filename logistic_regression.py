@@ -1,16 +1,6 @@
-from sklearn.calibration import LabelEncoder
 import tensorflow as tf
-import pandas as pd
-import sklearn.metrics as sk_metrics
-import os
-import keras
-from PIL import Image
-import numpy as np
 from keras import layers
-from keras.src.utils import to_categorical
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder
-from process import get_data, img_height, img_width
+from process import get_data
 
 # Define model filename
 model_filename = f"models/faces_model_logistic_regression.keras"
@@ -77,7 +67,7 @@ if __name__ == '__main__':
     model.summary()
 
     # Assuming X_train_gray and y_train are your training data and labels
-    history = model.fit(X_train, y_train, epochs=200, batch_size=64, validation_split=0.2)
+    history = model.fit(X_train, y_train, epochs=10, batch_size=32, validation_split=0.2)
 
     # Accuracy for validation and training data
     print("Validation Loss: ", history.history['val_loss'][-1])
