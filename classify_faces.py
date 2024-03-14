@@ -104,7 +104,7 @@ else:
                   loss='categorical_crossentropy',
                   metrics=['accuracy'])
 
-epochs = 12
+epochs = 10
 # Train the model
 history = model.fit(X_train, y_train, epochs=epochs, validation_data=(X_val, y_val))
 

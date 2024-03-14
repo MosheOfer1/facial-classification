@@ -1,11 +1,8 @@
 import os
-from matplotlib import pyplot as plt
-from process import get_data, data_rgb, img_height, img_width
+from process import data_rgb, img_height, img_width
 import keras
 from keras import layers
 import tensorflow as tf
-
-
 
 # Define model filename
 model_filename = f"models/faces_model_mlp_rgb.keras"
@@ -53,7 +50,7 @@ if __name__ == '__main__':
         model = tf.keras.models.load_model(model_filename)
         print("Loaded existing model")
     else:
-    
+
         input_shape = (img_height, img_width, 3)
         # hidden_layer_1_size = 256
         # hidden_layer_2_size = 128
@@ -66,20 +63,18 @@ if __name__ == '__main__':
 
         # Build the model:
         model = keras.Sequential(
-        [
-            keras.Input(shape=input_shape),
-            layers.Flatten(),
-            layers.Dense(hidden_layer_1_size, activation="relu"),
-            layers.Dense(hidden_layer_2_size, activation="relu"),
-            layers.Dense(hidden_layer_3_size, activation="relu"),
-            layers.Dense(num_classes, activation="softmax"),
+            [
+                keras.Input(shape=input_shape),
+                layers.Flatten(),
+                layers.Dense(hidden_layer_1_size, activation="relu"),
+                layers.Dense(hidden_layer_2_size, activation="relu"),
+                layers.Dense(hidden_layer_3_size, activation="relu"),
+                layers.Dense(num_classes, activation="softmax"),
             ]
         )
 
         model.summary()
 
-        # batch_size = 128
-        # epochs = 5
         batch_size = 128
         epochs = 15
 
@@ -109,9 +104,9 @@ if __name__ == '__main__':
     # # Save the model
     # model.save(model_filename)
 
-    # Load the model
-    loaded_model = keras.models.load_model(model_filename)  
-    loaded_model.summary()
-    evaluation_result = loaded_model.evaluate(X_test, y_test)
-    print(f"Loss: {evaluation_result[0]}")
-    print(f"Accuracy: {evaluation_result[1]}")
+    # # Load the model
+    # loaded_model = keras.models.load_model(model_filename)
+    # loaded_model.summary()
+    # evaluation_result = loaded_model.evaluate(X_test, y_test)
+    # print(f"Loss: {evaluation_result[0]}")
+    # print(f"Accuracy: {evaluation_result[1]}")
