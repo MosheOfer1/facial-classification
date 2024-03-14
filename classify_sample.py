@@ -11,7 +11,7 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 
 # Define model filename
-num_samples = 80  # Number of samples to randomly select
+num_samples = 101  # Number of samples to randomly select
 model_filename = f"models/faces_model_{num_samples}.keras"
 img_height = img_width = 222
 
@@ -50,7 +50,7 @@ labels_encoded = to_categorical(labels_encoded)  # One-hot encode labels
 # Split dataset
 X_train, X_test, y_train, y_test = train_test_split(images, labels_encoded, test_size=0.2, random_state=42)
 X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=0.2, random_state=42)
-
+print(f"train size: {len(X_train)}\nval size: {len(X_val)}\ntest size: {len(X_test)}")
 # Check if the model file exists
 if os.path.exists(model_filename):
     # Load the existing model

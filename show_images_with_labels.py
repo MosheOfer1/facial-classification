@@ -6,7 +6,7 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 
 # Define model filename
-model_filename = "models/faces_model_61.keras"
+model_filename = "models/faces_model_all_shuffled.keras"
 img_height = img_width = 222
 sample_size = 6
 # Read CSV file
